@@ -404,3 +404,64 @@ body.light .project-overlay {
     flex-wrap: wrap;
   }
 }
+/* =========================
+   FOOTER
+========================= */
+.footer {
+  padding: 50px 10%;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid #7f00ff33;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+}
+
+.footer-text {
+  font-size: 0.9rem;
+  color: #cfcfd6;
+}
+
+/* Social Icons */
+.social-links {
+  display: flex;
+  gap: 22px;
+}
+
+.social-links a {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 1px solid #7f00ff55;
+  transition: all 0.3s ease;
+}
+
+.social-links svg {
+  width: 20px;
+  height: 20px;
+  fill: #7f00ff;
+}
+
+.social-links a:hover {
+  background: #7f00ff;
+  box-shadow: 0 0 25px #7f00ff99;
+}
+
+.social-links a:hover svg {
+  fill: #ffffff;
+}
+
+/* Light mode footer */
+body.light .footer {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+body.light .footer-text {
+  color: #333333;
+}
