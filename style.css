@@ -7,76 +7,51 @@
 
 body {
   background: #0b0b0f;
-  color: #fff;
+  color: #ffffff;
   overflow-x: hidden;
-  transition: background 0.4s ease, color 0.4s ease;
-}
-
-/* PARTICLES */
-#particles {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
 }
 
 /* NAVBAR */
 .navbar {
   position: fixed;
-  top: 0;
   width: 100%;
   padding: 18px 10%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   background: rgba(10,10,20,0.7);
-  backdrop-filter: blur(12px);
-  z-index: 1000;
+  backdrop-filter: blur(10px);
+  z-index: 10;
 }
 
-.logo { color: #b983ff; font-weight: 700; }
-
 .nav-links {
-  list-style: none;
   display: flex;
   gap: 25px;
+  list-style: none;
 }
 
 .nav-links a {
-  color: #ffffffcc;
+  color: #ccc;
   text-decoration: none;
 }
 
-.nav-links a:hover { color: #b983ff; }
-
-/* THEME TOGGLE */
-.theme-toggle {
-  background: none;
-  border: 2px solid #7f00ff;
+.nav-links a:hover {
   color: #7f00ff;
-  border-radius: 20px;
-  padding: 6px 12px;
-  cursor: pointer;
 }
 
 /* HERO */
 .hero {
   min-height: 100vh;
-  padding: 140px 10% 80px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  padding: 140px 10%;
 }
 
-.hero-content h1 { font-size: 3.5rem; }
-.hero-content h2 { color: #b983ff; margin-top: 10px; }
-
-.hero-buttons { margin-top: 30px; display: flex; gap: 20px; }
-
+/* BUTTONS */
 .btn {
-  padding: 14px 28px;
+  padding: 14px 26px;
   border-radius: 30px;
   text-decoration: none;
-  font-weight: 600;
+  margin-right: 12px;
 }
 
 .primary {
@@ -89,99 +64,71 @@ body {
   color: #7f00ff;
 }
 
-.secondary:hover { background: #7f00ff; color: white; }
-
-/* IMAGE */
-.hero-image img {
-  width: 320px;
-  border-radius: 50%;
-  box-shadow: 0 0 40px #7f00ff99;
-}
-
-/* SECTIONS */
+/* SKILLS */
 .skills, .projects, .contact {
   padding: 120px 10%;
 }
 
 .section-title {
   text-align: center;
-  font-size: 2.4rem;
   color: #b983ff;
-  margin-bottom: 60px;
+  margin-bottom: 50px;
 }
 
-/* SKILLS */
-.skills-grid {
+.skills-grid, .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
   gap: 25px;
 }
 
-.skill-card {
-  padding: 22px;
-  border-radius: 16px;
+.skill-card, .project-card {
+  padding: 25px;
+  border-radius: 14px;
   background: rgba(255,255,255,0.04);
   border: 1px solid #7f00ff33;
+}
+
+/* FOOTER */
+.footer {
+  padding: 60px 10%;
   text-align: center;
 }
 
-/* PROJECTS */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-  gap: 35px;
-}
-
-.project-card {
-  height: 320px;
-  border-radius: 18px;
-  background: rgba(255,255,255,0.05);
-  position: relative;
-  overflow: hidden;
-}
-
-.project-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(11,11,15,0.95);
-  opacity: 0;
+.social-links {
   display: flex;
-  flex-direction: column;
+  gap: 22px;
   justify-content: center;
-  padding: 25px;
-  transition: opacity 0.4s ease;
 }
 
-.project-card:hover .project-overlay { opacity: 1; }
+.social-links a {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #7f00ff55;
+  display: grid;
+  place-items: center;
+}
 
-/* CURSOR GLOW */
+.social-links svg {
+  width: 22px;
+  fill: #7f00ff;
+}
+
+/* PARTICLES */
+#particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* CURSOR */
 .cursor-glow {
   position: fixed;
-  width: 220px;
-  height: 220px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
+  background: radial-gradient(circle,rgba(127,0,255,0.35),transparent 70%);
   pointer-events: none;
-  background: radial-gradient(circle,
-    rgba(127,0,255,0.35),
-    rgba(0,198,255,0.15),
-    transparent 70%);
   filter: blur(40px);
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  z-index: 999;
-}
-
-/* LIGHT MODE */
-body.light {
-  background: #f4f6fb;
-  color: #0b0b0f;
-}
-
-body.light .navbar {
-  background: rgba(245,246,250,0.9);
-}
-
-body.light .skill-card,
-body.light .project-card {
-  background: rgba(0,0,0,0.05);
 }
