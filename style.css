@@ -403,6 +403,81 @@ body {
   }
 
   .hero-buttons {
+/* =========================
+   THEME TOGGLE BUTTON
+========================= */
+.theme-toggle {
+  background: none;
+  border: 2px solid #7f00ff;
+  color: #7f00ff;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background: #7f00ff;
+  color: #ffffff;
+}
+
+/* =========================
+   LIGHT MODE STYLES
+========================= */
+body.light {
+  background: #f5f6fa;
+  color: #0b0b0f;
+}
+
+body.light .navbar {
+  background: rgba(245, 246, 250, 0.85);
+}
+
+body.light .nav-links a {
+  color: #333333;
+}
+
+body.light .nav-links a:hover {
+  color: #7f00ff;
+}
+
+body.light .hero {
+  background:
+    radial-gradient(circle at top left, #7f00ff22, transparent 40%),
+    radial-gradient(circle at bottom right, #00c6ff22, transparent 40%);
+}
+
+body.light .hero-content p,
+body.light .project-overlay p {
+  color: #333333;
+}
+
+body.light .section-title {
+  color: #5a00cc;
+}
+
+body.light .skill-card,
+body.light .project-card {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: #7f00ff55;
+}
+
+body.light .project-overlay {
+  background: rgba(245, 246, 250, 0.95);
+}
+
+/* Cursor glow adapts in light mode */
+body.light .cursor-glow {
+  background: radial-gradient(
+    circle,
+    rgba(0, 198, 255, 0.35),
+    rgba(127, 0, 255, 0.15),
+    transparent 70%
+  );
+}
+
+     
     justify-content: center;
     flex-wrap: wrap;
   }
