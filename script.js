@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add("show");
-          observer.unobserve(entry.target); // reveal once
+          observer.unobserve(entry.target);
         }
       });
     },
@@ -97,51 +97,78 @@ document.addEventListener("DOMContentLoaded", () => {
      PARTICLE BACKGROUND (CANVAS)
   ============================== */
   const canvas = document.getElementById("particles");
-  if (!canvas) return;
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+    let w, h;
 
-  const ctx = canvas.getContext("2d");
-  let w, h;
+    function resizeCanvas() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
 
-  function resizeCanvas() {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    const particleCount = 60;
+    const particles = [];
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 2 + 1,
+        dx: (Math.random() - 0.5) * 0.3,
+        dy: (Math.random() - 0.5) * 0.3
+      });
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, w, h);
+
+      particles.forEach(p => {
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if (p.x < 0 || p.x > w) p.dx *= -1;
+        if (p.y < 0 || p.y > h) p.dy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(127, 0, 255, 0.4)";
+        ctx.fill();
+      });
+
+      requestAnimationFrame(drawParticles);
+    }
+
+    drawParticles();
   }
 
-  resizeCanvas();
-  window.addEventListener("resize", resizeCanvas);
 
-  const particleCount = 60;
-  const particles = [];
+  /* ==============================
+     DARK / LIGHT MODE TOGGLE
+  ============================== */
+  const themeToggle = document.getElementById("themeToggle");
+  const body = document.body;
 
-  for (let i = 0; i < particleCount; i++) {
-    particles.push({
-      x: Math.random() * w,
-      y: Math.random() * h,
-      r: Math.random() * 2 + 1,
-      dx: (Math.random() - 0.5) * 0.3,
-      dy: (Math.random() - 0.5) * 0.3
+  // Load saved theme
+  if (localStorage.getItem("theme") === "light") {
+    body.classList.add("light");
+    if (themeToggle) themeToggle.textContent = "☀️";
+  }
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("light");
+
+      if (body.classList.contains("light")) {
+        localStorage.setItem("theme", "light");
+        themeToggle.textContent = "☀️";
+      } else {
+        localStorage.setItem("theme", "dark");
+        themeToggle.textContent = "🌙";
+      }
     });
   }
-
-  function drawParticles() {
-    ctx.clearRect(0, 0, w, h);
-
-    particles.forEach(p => {
-      p.x += p.dx;
-      p.y += p.dy;
-
-      if (p.x < 0 || p.x > w) p.dx *= -1;
-      if (p.y < 0 || p.y > h) p.dy *= -1;
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(127, 0, 255, 0.4)";
-      ctx.fill();
-    });
-
-    requestAnimationFrame(drawParticles);
-  }
-
-  drawParticles();
 
 });
