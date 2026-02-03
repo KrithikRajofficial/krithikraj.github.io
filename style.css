@@ -19,16 +19,6 @@ body {
 }
 
 /* =========================
-   GLOBAL LAYER FIX (IMPORTANT)
-========================= */
-section,
-nav,
-footer {
-  position: relative;
-  z-index: 2;
-}
-
-/* =========================
    NAVBAR
 ========================= */
 .navbar {
@@ -81,8 +71,10 @@ footer {
   background:
     radial-gradient(circle at top left, #7f00ff33, transparent 40%),
     radial-gradient(circle at bottom right, #00c6ff33, transparent 40%);
+  z-index: 2;
 }
 
+/* Animated gradient overlay */
 .hero::before {
   content: "";
   position: absolute;
@@ -90,8 +82,8 @@ footer {
   background: linear-gradient(120deg, #7f00ff, #00c6ff, #7f00ff);
   background-size: 300% 300%;
   animation: bgMove 12s ease infinite;
-  opacity: 0.18;
-  z-index: 0;
+  opacity: 0.15;
+  z-index: -1;
 }
 
 @keyframes bgMove {
@@ -105,7 +97,6 @@ footer {
 ========================= */
 .hero-content {
   max-width: 600px;
-  z-index: 2;
 }
 
 .hero-content h1 {
@@ -142,21 +133,6 @@ footer {
   text-decoration: none;
   font-weight: 600;
   transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle, #ffffff55 10%, transparent 60%);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.btn:hover::after {
-  opacity: 1;
 }
 
 .primary {
@@ -182,20 +158,12 @@ footer {
 /* =========================
    HERO IMAGE
 ========================= */
-.hero-image {
-  z-index: 2;
-}
-
 .hero-image img {
   width: 320px;
+  max-width: 100%;
   border-radius: 50%;
   animation: float 4s ease-in-out infinite;
   box-shadow: 0 0 40px #7f00ff99;
-  transition: transform 0.4s ease;
-}
-
-.hero-image img:hover {
-  transform: scale(1.08);
 }
 
 @keyframes float {
@@ -205,7 +173,7 @@ footer {
 }
 
 /* =========================
-   SKILLS
+   SKILLS SECTION
 ========================= */
 .skills {
   padding: 120px 10% 80px;
@@ -226,11 +194,10 @@ footer {
 
 .skill-card {
   padding: 25px;
-  text-align: center;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid #7f00ff33;
-  font-weight: 600;
+  text-align: center;
   opacity: 0;
   transform: translateY(30px);
 }
@@ -257,9 +224,10 @@ footer {
 .project-card {
   height: 320px;
   border-radius: 18px;
-  overflow: hidden;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid #7f00ff33;
+  position: relative;
+  overflow: hidden;
   opacity: 0;
   transform: translateY(40px);
 }
@@ -270,18 +238,54 @@ footer {
   transition: all 0.7s ease;
 }
 
+.project-image.placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1a2e, #16213e, #1a1a2e);
+}
+
+.project-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 11, 15, 0.92);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  padding: 25px;
+}
+
+.project-card:hover .project-overlay {
+  opacity: 1;
+}
+
 /* =========================
-   PARTICLES (FIXED)
+   CONTACT
+========================= */
+.contact {
+  padding: 100px 10%;
+  text-align: center;
+}
+
+/* =========================
+   FOOTER
+========================= */
+.footer {
+  padding: 50px 10%;
+  text-align: center;
+  border-top: 1px solid #7f00ff33;
+}
+
+/* =========================
+   PARTICLES (FIXED BUG)
 ========================= */
 #particles {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
+  inset: 0;
+  z-index: -2;
   pointer-events: none;
-  opacity: 0.6;
 }
 
 /* =========================
@@ -291,7 +295,6 @@ footer {
   position: fixed;
   width: 220px;
   height: 220px;
-  pointer-events: none;
   border-radius: 50%;
   background: radial-gradient(
     circle,
@@ -299,9 +302,12 @@ footer {
     rgba(0, 198, 255, 0.15),
     transparent 70%
   );
+  pointer-events: none;
+  transform: translate(-50%, -50%);
   filter: blur(40px);
-  z-index: 1;
+  z-index: 5;
   opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 /* =========================
