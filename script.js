@@ -20,7 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!deleting && charIndex <= current.length) {
       typingElement.textContent = current.substring(0, charIndex++);
-    } else if (deleting && charIndex >= 0) {
+    } 
+    else if (deleting && charIndex >= 0) {
       typingElement.textContent = current.substring(0, charIndex--);
     }
 
@@ -38,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* ==============================
-     SMOOTH SCROLL
+     SMOOTH SCROLL (ANCHORS)
   ============================== */
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener("click", e => {
@@ -54,29 +55,32 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ==============================
      SCROLL REVEAL (SKILLS + PROJECTS)
   ============================== */
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.2 });
+  const revealObserver = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
 
   document.querySelectorAll(".skill-card, .project-card").forEach(el => {
-    observer.observe(el);
+    revealObserver.observe(el);
   });
 
 
   /* ==============================
-     CURSOR GLOW
+     CURSOR GLOW EFFECT
   ============================== */
   const cursor = document.querySelector(".cursor-glow");
 
   if (cursor) {
     document.addEventListener("mousemove", e => {
-      cursor.style.left = e.clientX + "px";
-      cursor.style.top = e.clientY + "px";
+      cursor.style.left = `${e.clientX}px`;
+      cursor.style.top = `${e.clientY}px`;
       cursor.style.opacity = "1";
     });
 
@@ -87,52 +91,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* ==============================
-     PARTICLE BACKGROUND (FIXED)
+     PARTICLE BACKGROUND (CANVAS)
+     — FIXED (NO BIG SHAPES)
   ============================== */
   const canvas = document.getElementById("particles");
   if (!canvas) return;
 
   const ctx = canvas.getContext("2d");
+  let width, height;
 
   function resizeCanvas() {
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = window.innerWidth * dpr;
-    canvas.height = window.innerHeight * dpr;
-    canvas.style.width = window.innerWidth + "px";
-    canvas.style.height = window.innerHeight + "px";
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
   }
 
   resizeCanvas();
   window.addEventListener("resize", resizeCanvas);
 
-  const particles = Array.from({ length: 60 }, () => ({
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight,
-    r: Math.random() * 1.5 + 0.5,
-    dx: (Math.random() - 0.5) * 0.3,
-    dy: (Math.random() - 0.5) * 0.3
-  }));
+  const particles = [];
+  const PARTICLE_COUNT = 70;
 
-  function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      r: Math.random() * 1.8 + 0.6,
+      dx: (Math.random() - 0.5) * 0.3,
+      dy: (Math.random() - 0.5) * 0.3
+    });
+  }
+
+  function drawParticles() {
+    ctx.clearRect(0, 0, width, height);
 
     particles.forEach(p => {
       p.x += p.dx;
       p.y += p.dy;
 
-      if (p.x < 0 || p.x > window.innerWidth) p.dx *= -1;
-      if (p.y < 0 || p.y > window.innerHeight) p.dy *= -1;
+      if (p.x < 0 || p.x > width) p.dx *= -1;
+      if (p.y < 0 || p.y > height) p.dy *= -1;
 
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(127, 0, 255, 0.6)";
+      ctx.fillStyle = "rgba(127, 0, 255, 0.45)";
       ctx.fill();
     });
 
-    requestAnimationFrame(animateParticles);
+    requestAnimationFrame(drawParticles);
   }
 
-  animateParticles();
+  drawParticles();
 
 });
