@@ -10,54 +10,53 @@ document.addEventListener("DOMContentLoaded", () => {
   let i = 0, j = 0, del = false;
   const typing = document.getElementById("typing");
 
-  function type() {
+  function typeLoop() {
     const text = roles[i];
-    typing.textContent = text.substring(0, j);
+    typing.textContent = text.slice(0, j);
 
     if (!del) j++;
     else j--;
 
-    if (j > text.length + 8) del = true;
+    if (j > text.length + 6) del = true;
     if (j === 0 && del) {
       del = false;
       i = (i + 1) % roles.length;
     }
 
-    setTimeout(type, del ? 40 : 80);
+    setTimeout(typeLoop, del ? 40 : 80);
   }
-  type();
+  typeLoop();
 
   /* CURSOR GLOW */
-const glow = document.querySelector(".cursor-glow");
+  const glow = document.querySelector(".cursor-glow");
 
-document.addEventListener("mousemove", (e) => {
-  glow.style.left = e.clientX + "px";
-  glow.style.top = e.clientY + "px";
-  glow.style.opacity = "1";
-});
+  document.addEventListener("mousemove", e => {
+    glow.style.left = e.clientX + "px";
+    glow.style.top = e.clientY + "px";
+    glow.style.opacity = "1";
+  });
 
-document.addEventListener("mouseleave", () => {
-  glow.style.opacity = "0";
-});
-
+  document.addEventListener("mouseleave", () => {
+    glow.style.opacity = "0";
+  });
 
   /* PARTICLES */
   const canvas = document.getElementById("particles");
   const ctx = canvas.getContext("2d");
 
   function resize() {
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
   }
   resize();
   window.addEventListener("resize", resize);
 
-  const dots = Array.from({ length: 60 }, () => ({
+  const dots = Array.from({ length: 50 }, () => ({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
-    r: Math.random() * 2 + 1,
-    dx: (Math.random() - 0.5) * 0.3,
-    dy: (Math.random() - 0.5) * 0.3
+    r: Math.random() * 1.6 + 0.6,
+    dx: (Math.random() - 0.5) * 0.25,
+    dy: (Math.random() - 0.5) * 0.25
   }));
 
   function animate() {
@@ -71,10 +70,18 @@ document.addEventListener("mouseleave", () => {
 
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(127,0,255,0.4)";
+      ctx.fillStyle = "rgba(127,0,255,0.35)";
       ctx.fill();
     });
     requestAnimationFrame(animate);
   }
   animate();
+
+  /* THEME TOGGLE */
+  const toggle = document.getElementById("themeToggle");
+  toggle.addEventListener("click", () => {
+    document.body.classList.toggle("light");
+    toggle.textContent = document.body.classList.contains("light") ? "☀️" : "🌙";
+  });
+
 });
