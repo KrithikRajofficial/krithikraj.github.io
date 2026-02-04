@@ -11,9 +11,15 @@
 
 <body>
 
-<!-- BACKGROUND EFFECTS -->
+<!-- BACKGROUND -->
 <canvas id="particles"></canvas>
 <div class="cursor-glow"></div>
+
+<!-- FLOATING SEEKING ROLE BADGE -->
+<div class="seeking-badge">
+  <span class="pulse-dot"></span>
+  Seeking Robotics & Automation Roles
+</div>
 
 <!-- NAVBAR -->
 <nav class="navbar">
@@ -21,12 +27,12 @@
 
   <ul class="nav-links">
     <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 
-  <!-- ✅ WORKING TOGGLE -->
-  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+  <button class="theme-toggle" id="themeToggle">🌙</button>
 </nav>
 
 <!-- HERO -->
@@ -62,32 +68,76 @@
   </div>
 </section>
 
+<!-- EDUCATION -->
+<section class="education">
+  <h2 class="section-title">Education</h2>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <h3>MSc Robotics</h3>
+      <p>University of Birmingham</p>
+    </div>
+    <div class="edu-card">
+      <h3>B.E Mechatronics</h3>
+      <p>Anna University</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE TIMELINE -->
+<section class="experience" id="experience">
+  <h2 class="section-title">Experience</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <span class="dot"></span>
+      <div class="content">
+        <h3>Research Associate</h3>
+        <p>Extreme Robotics Laboratory (NCNR)</p>
+        <span>Nov 2025 – Present</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <span class="dot"></span>
+      <div class="content">
+        <h3>Technical Trainee</h3>
+        <p>Schneider Electric</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <span class="dot"></span>
+      <div class="content">
+        <h3>Industrial Trainee</h3>
+        <p>Hyundai Motor India</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PROJECTS -->
 <section class="projects" id="projects">
-  <h2 class="section-title">Projects</h2>
+  <h2 class="section-title">Research & Projects</h2>
 
   <div class="projects-grid">
     <div class="project-card">
       <div class="project-overlay">
-        <h3>Autonomous Drone with AI</h3>
-        <p>YOLO-based object detection and navigation.</p>
-        <a href="#">GitHub Demo</a>
+        <h3>Autonomous Drone Navigation</h3>
+        <p>SLAM + YOLO based perception</p>
       </div>
     </div>
 
     <div class="project-card">
       <div class="project-overlay">
         <h3>Automatic Pill Dispenser</h3>
-        <p>Embedded healthcare system.</p>
-        <a href="#">GitHub Demo</a>
+        <p>Embedded healthcare robotics</p>
       </div>
     </div>
 
     <div class="project-card">
       <div class="project-overlay">
-        <h3>Autonomous E-Bike System</h3>
-        <p>Award-winning electric mobility project.</p>
-        <a href="#">GitHub Demo</a>
+        <h3>Autonomous E-Bike</h3>
+        <p>Electric mobility system</p>
       </div>
     </div>
   </div>
@@ -102,8 +152,8 @@
 <!-- FOOTER -->
 <footer class="footer">
   <div class="social-links">
-    <a href="https://github.com/KrithikRajofficial" target="_blank">GitHub</a>
-    <a href="https://linkedin.com/in/krithikraj" target="_blank">LinkedIn</a>
+    <a href="#">GitHub</a>
+    <a href="#">LinkedIn</a>
   </div>
   <p>© 2026 Krithik Raj</p>
 </footer>
