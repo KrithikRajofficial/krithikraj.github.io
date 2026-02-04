@@ -26,48 +26,45 @@ body.light {
 body {
   background: var(--bg-main);
   color: var(--text-main);
-  transition: background 0.4s ease;
+  transition: background 0.4s, color 0.4s;
 }
 
-/* PARTICLES */
 #particles {
   position: fixed;
   inset: 0;
   z-index: -1;
 }
 
-/* CURSOR GLOW */
 .cursor-glow {
   position: fixed;
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(127,0,255,0.25), transparent 70%);
-  filter: blur(50px);
-  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(127,0,255,.25), transparent 70%);
+  filter: blur(45px);
   pointer-events: none;
   opacity: 0;
+  transform: translate(-50%, -50%);
   z-index: 2;
 }
 
 /* NAVBAR */
 .navbar {
   position: fixed;
-  top: 0;
   width: 100%;
+  top: 0;
   padding: 18px 10%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  background: rgba(10,10,20,0.65);
   backdrop-filter: blur(12px);
+  background: rgba(10,10,20,0.65);
   z-index: 10;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 26px;
+  gap: 28px;
 }
 
 .nav-links a {
@@ -75,114 +72,56 @@ body {
   color: var(--text-muted);
 }
 
-.nav-links a:hover {
-  color: var(--accent);
-}
-
 .theme-toggle {
   background: none;
   border: 1px solid var(--border-soft);
   color: var(--accent);
-  padding: 6px 12px;
   border-radius: 20px;
-  cursor: pointer;
+  padding: 6px 12px;
 }
 
 /* HERO */
 .hero {
-  padding: 150px 10% 120px;
-}
-
-.hero-inner {
-  max-width: 1200px;
-  margin: auto;
+  min-height: 100vh;
+  padding: 140px 10%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 60px;
 }
 
-.hero-content h1 {
-  font-size: 3.6rem;
-}
-
-.hero-content h2 {
-  margin-top: 12px;
-  color: var(--accent);
-}
-
-.hero-content p {
-  margin-top: 20px;
-  max-width: 520px;
-  color: var(--text-muted);
-}
-
-.hero-buttons {
-  margin-top: 30px;
-  display: flex;
-  gap: 20px;
-}
-
-.btn {
-  padding: 14px 28px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.primary {
-  background: linear-gradient(135deg, var(--accent), #00c6ff);
-  color: #fff;
-}
-
-.secondary {
-  border: 2px solid var(--accent);
-  color: var(--accent);
-}
-
-/* HERO IMAGE */
 .hero-image {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: relative;
 }
 
 .hero-image img {
   width: 320px;
   border-radius: 50%;
-  box-shadow: 0 0 45px var(--border-soft);
+  box-shadow: 0 0 40px var(--border-soft);
 }
 
-/* SEEKING BADGE BELOW IMAGE */
-.seeking-inline {
-  margin-top: 16px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-soft);
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  display: flex;
+.seeking-badge {
+  margin-top: 18px;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--border-soft);
+  background: var(--bg-card);
+  font-size: 0.9rem;
 }
 
-.seeking-inline .dot {
+.seeking-badge .dot {
   width: 8px;
   height: 8px;
-  background: #3cff8f;
+  background: #3cff7a;
   border-radius: 50%;
-  animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-  0% { opacity: .4; }
-  50% { opacity: 1; }
-  100% { opacity: .4; }
+  box-shadow: 0 0 10px #3cff7a;
 }
 
 /* SECTIONS */
-.section {
-  padding: 110px 10%;
+section {
+  padding: 120px 10%;
 }
 
 .section-title {
@@ -194,8 +133,6 @@ body {
 
 /* SKILLS */
 .skills-grid {
-  max-width: 1100px;
-  margin: auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
   gap: 25px;
@@ -204,10 +141,10 @@ body {
 .skill-card {
   background: var(--bg-card);
   border: 1px solid var(--border-soft);
-  padding: 22px;
   border-radius: 16px;
+  padding: 22px;
   text-align: center;
-  transition: transform .3s, box-shadow .3s;
+  transition: 0.3s;
 }
 
 .skill-card:hover {
@@ -216,92 +153,63 @@ body {
 }
 
 /* EDUCATION */
-.edu-grid {
-  max-width: 900px;
-  margin: auto;
+.education-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
+  gap: 40px;
 }
 
-.edu-card {
+.education-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
   background: var(--bg-card);
   border: 1px solid var(--border-soft);
   padding: 26px;
   border-radius: 18px;
+  transition: 0.3s;
+}
+
+.education-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 26px var(--border-soft);
+}
+
+.edu-logo {
+  width: 90px;
+  object-fit: contain;
 }
 
 /* EXPERIENCE */
-.timeline {
-  max-width: 700px;
-  margin: auto;
-}
-
 .timeline-item {
   display: flex;
-  gap: 18px;
-  margin-bottom: 28px;
-}
-
-.timeline-dot {
-  width: 12px;
-  height: 12px;
-  background: var(--accent);
-  border-radius: 50%;
-  margin-top: 6px;
+  gap: 20px;
+  justify-content: center;
 }
 
 .timeline-card {
   background: var(--bg-card);
   border: 1px solid var(--border-soft);
-  padding: 22px;
+  padding: 20px;
   border-radius: 16px;
 }
 
 /* PROJECTS */
 .projects-grid {
-  max-width: 1100px;
-  margin: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
   gap: 35px;
 }
 
 .project-card {
-  height: 320px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-soft);
+  height: 260px;
   border-radius: 18px;
-  position: relative;
+  border: 1px solid var(--border-soft);
+  background: var(--bg-card);
 }
 
-.project-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(10,10,20,0.95);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: opacity .4s;
-}
-
-.project-card:hover .project-overlay {
-  opacity: 1;
-}
-
-/* FOOTER */
 .footer {
-  padding: 40px;
   text-align: center;
+  padding: 40px;
   border-top: 1px solid var(--border-soft);
-}
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .hero-inner {
-    flex-direction: column-reverse;
-    text-align: center;
-  }
 }
