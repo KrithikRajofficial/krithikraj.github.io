@@ -2,166 +2,155 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Krithik Raj | Robotics & Automation Engineer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Krithik Raj | Robotics & AI Engineer</title>
 
-  <link rel="stylesheet" href="style.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
+<!-- BACKGROUND EFFECTS -->
 <canvas id="particles"></canvas>
 <div class="cursor-glow"></div>
 
+<!-- FLOATING SEEKING ROLE BADGE -->
+<div class="seeking-badge">
+  <span class="dot"></span>
+  Seeking Robotics & Automation Roles
+</div>
+
 <!-- NAVBAR -->
 <nav class="navbar">
-  <div class="logo">KR◦</div>
+  <div class="logo">KR</div>
+
   <ul class="nav-links">
-    <li><a href="#home">Home</a></li>
-    <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
     <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <button id="themeToggle" class="theme-toggle">🌙</button>
+
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
 </nav>
 
 <!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-glow"></div>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <h1>Krithik Raj</h1>
+      <h2><span id="typing"></span></h2>
+      <p>Designing intelligent robotic systems that bridge the physical and digital world.</p>
 
-  <div class="hero-content">
-    <div class="status-badge">● Seeking Robotics & Automation Roles</div>
-
-    <h1>Krithik Raj</h1>
-    <h2><span id="typing"></span></h2>
-
-    <p class="hero-desc">
-      Designing intelligent robotic systems that bridge
-      the physical and digital world through autonomy,
-      perception, and control.
-    </p>
-
-    <div class="hero-buttons">
-      <a class="btn primary" href="#">Download Resume</a>
-      <a class="btn secondary" href="#projects">Explore My Work</a>
-    </div>
-
-    <div class="hero-links">
-      <a href="mailto:krithikraj@email.com">Email</a>
-      <a href="https://linkedin.com/in/krithikraj" target="_blank">LinkedIn</a>
-      <a href="https://github.com/KrithikRajofficial" target="_blank">GitHub</a>
-    </div>
-
-    <span class="updated">Last updated: Sep 2026</span>
-  </div>
-
-  <div class="hero-image">
-    <img src="assets/images/profile.jpg" alt="Krithik Raj"/>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about" class="about">
-  <div class="about-text glass">
-    <h3>About Me</h3>
-    <p>
-      Robotics & Automation Engineer with a Mechanical Engineering foundation
-      and strong expertise in ROS 2, autonomous systems, computer vision,
-      and simulation-driven development.
-    </p>
-  </div>
-
-  <div class="education glass">
-    <h3>Education</h3>
-
-    <div class="edu-item">
-      <img src="assets/images/uob_logo.png">
-      <div>
-        <strong>MSc Robotics</strong>
-        <span>University of Birmingham</span>
+      <div class="hero-buttons">
+        <a href="#" class="btn primary">Download Resume</a>
+        <a href="#contact" class="btn secondary">Contact Me</a>
       </div>
     </div>
 
-    <div class="edu-item">
-      <img src="assets/images/svce-logo.png">
-      <div>
-        <strong>B.E Mechanical Engineering</strong>
-        <span>Sri Venkateswara College of Engineering</span>
-      </div>
+    <div class="hero-image">
+      <img src="assets/images/profile.jpg" alt="Krithik Raj">
     </div>
   </div>
 </section>
 
 <!-- SKILLS -->
-<section id="skills" class="skills">
+<section class="section" id="skills">
   <h2 class="section-title">Technical Skills</h2>
 
   <div class="skills-grid">
-    <div class="skill-card glass">
-      <h4>3D Modelling & Tools</h4>
-      <p>CATIA V5 · Fusion 360 · SolidWorks · Creo · AutoCAD</p>
+    <div class="skill-card">ROS 2</div>
+    <div class="skill-card">Computer Vision</div>
+    <div class="skill-card">SLAM</div>
+    <div class="skill-card">Python</div>
+    <div class="skill-card">C++</div>
+    <div class="skill-card">Autonomous Systems</div>
+    <div class="skill-card">Gazebo</div>
+    <div class="skill-card">OpenCV</div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="section" id="education">
+  <h2 class="section-title">Education</h2>
+
+  <div class="edu-grid">
+    <div class="edu-card">
+      <h3>MSc Robotics</h3>
+      <p>University of Birmingham</p>
     </div>
 
-    <div class="skill-card glass">
-      <h4>Programming</h4>
-      <p>Python · C · C++ · SQL · HTML · CSS · JavaScript</p>
+    <div class="edu-card">
+      <h3>B.E Mechatronics</h3>
+      <p>Anna University</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section" id="experience">
+  <h2 class="section-title">Experience</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <span class="timeline-dot"></span>
+      <div class="timeline-card">
+        <h3>Research Associate</h3>
+        <p>Extreme Robotics Laboratory (NCNR)</p>
+        <span>Nov 2025 – Present</span>
+      </div>
     </div>
 
-    <div class="skill-card glass">
-      <h4>Vision & Perception</h4>
-      <p>OpenCV · YOLO · SLAM</p>
+    <div class="timeline-item">
+      <span class="timeline-dot"></span>
+      <div class="timeline-card">
+        <h3>Technical Trainee</h3>
+        <p>Schneider Electric</p>
+      </div>
     </div>
 
-    <div class="skill-card glass">
-      <h4>Robotics</h4>
-      <p>ROS 2 Humble · Gazebo · RViz · ESP32 · Arduino · Pixhawk</p>
+    <div class="timeline-item">
+      <span class="timeline-dot"></span>
+      <div class="timeline-card">
+        <h3>Industrial Trainee</h3>
+        <p>Hyundai Motor India</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- PROJECTS -->
-<section id="projects" class="projects">
+<section class="section" id="projects">
   <h2 class="section-title">Research & Projects</h2>
 
   <div class="projects-grid">
-    <div class="project-card glass">Autonomous E-Bike System</div>
-    <div class="project-card glass">Rescue Drone – SIH</div>
-    <div class="project-card glass">Autonomous UAV (Final Year)</div>
-    <div class="project-card glass">Webots Mobile Robot</div>
-  </div>
-</section>
+    <div class="project-card">
+      <div class="project-overlay">
+        <h3>Automatic Pill Dispenser</h3>
+        <p>Embedded healthcare robotics</p>
+      </div>
+    </div>
 
-<!-- EXPERIENCE -->
-<section id="experience" class="experience">
-  <h2 class="section-title">Professional Experience</h2>
-
-  <div class="timeline glass">
-    <h4>Research Associate</h4>
-    <span>Extreme Robotics Laboratory (NCNR)</span>
-    <p>Autonomous robotics research, simulation & system design.</p>
+    <div class="project-card"></div>
+    <div class="project-card"></div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="contact glass">
-  <h2>Get In Touch</h2>
-  <p>
-    Interested in robotics research, industry roles, or collaboration?
-    Let’s connect.
-  </p>
-
-  <div class="contact-links">
-    <a href="mailto:krithikraj@email.com">krithikraj@email.com</a>
-    <a href="https://linkedin.com/in/krithikraj">LinkedIn</a>
-    <a href="https://github.com/KrithikRajofficial">GitHub</a>
-  </div>
+<section class="section contact" id="contact">
+  <h2 class="section-title">Contact</h2>
+  <p>Email: <a href="mailto:krithikraj@email.com">krithikraj@email.com</a></p>
 </section>
 
+<!-- FOOTER -->
 <footer class="footer">
-  © 2026 Krithik Raj
+  <div class="social-links">
+    <a href="https://github.com/KrithikRajofficial" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/krithikraj" target="_blank">LinkedIn</a>
+  </div>
+  <p>© 2026 Krithik Raj</p>
 </footer>
 
 <script src="script.js"></script>
