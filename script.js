@@ -1,81 +1,92 @@
-document.addEventListener("DOMContentLoaded", () => {
+// Stars canvas background (simple)
+(function(){
+  const canvas = document.getElementById('stars');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h, stars=[];
 
-  /* TYPING EFFECT */
-  const roles = [
-    "Robotics & AI Engineer",
-    "ROS • Computer Vision • Autonomous Systems",
-    "Building Intelligent Machines"
-  ];
+  function resize(){
+    w = canvas.width = innerWidth;
+    h = canvas.height = innerHeight;
+    initStars();
+  }
 
-  let i = 0, j = 0, del = false;
-  const typing = document.getElementById("typing");
-
-  function typeLoop() {
-    const text = roles[i];
-    typing.textContent = text.slice(0, j);
-
-    j = del ? j - 1 : j + 1;
-
-    if (j > text.length + 6) del = true;
-    if (j === 0 && del) {
-      del = false;
-      i = (i + 1) % roles.length;
+  function initStars(){
+    stars = [];
+    const count = Math.round((w*h)/7000);
+    for(let i=0;i<count;i++){
+      stars.push({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        r: Math.random()*1.2 + 0.3,
+        alpha: Math.random()*0.8 + 0.2,
+        vx: (Math.random()-0.5)*0.05
+      });
     }
-
-    setTimeout(typeLoop, del ? 40 : 80);
   }
-  typeLoop();
 
-  /* CURSOR GLOW */
-  const glow = document.querySelector(".cursor-glow");
-  document.addEventListener("mousemove", e => {
-    glow.style.left = e.clientX + "px";
-    glow.style.top = e.clientY + "px";
-    glow.style.opacity = "1";
-  });
-  document.addEventListener("mouseleave", () => glow.style.opacity = "0");
-
-  /* PARTICLES */
-  const canvas = document.getElementById("particles");
-  const ctx = canvas.getContext("2d");
-
-  function resize() {
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
-  }
-  resize();
-  window.addEventListener("resize", resize);
-
-  const dots = Array.from({ length: 45 }, () => ({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    r: Math.random() * 1.4 + 0.6,
-    dx: (Math.random() - 0.5) * 0.25,
-    dy: (Math.random() - 0.5) * 0.25
-  }));
-
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    dots.forEach(p => {
-      p.x += p.dx;
-      p.y += p.dy;
-      if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-      if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
-
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    for(let s of stars){
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(127,0,255,0.35)";
+      ctx.fillStyle = "rgba(200,180,255," + s.alpha + ")";
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
       ctx.fill();
-    });
-    requestAnimationFrame(animate);
+      s.x += s.vx;
+      if(s.x<0) s.x = w;
+      if(s.x> w) s.x = 0;
+    }
+    requestAnimationFrame(draw);
   }
-  animate();
 
-  /* THEME TOGGLE */
-  const toggle = document.getElementById("themeToggle");
-  toggle.addEventListener("click", () => {
-    document.body.classList.toggle("light");
-    toggle.textContent = document.body.classList.contains("light") ? "☀️" : "🌙";
-  });
+  window.addEventListener('resize', resize);
+  resize();
+  draw();
+})();
 
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', function(e){
+    const target = document.querySelector(this.getAttribute('href'));
+    if(target){
+      e.preventDefault();
+      target.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  })
 });
+
+// Scroll-to-top
+const toTop = document.getElementById('toTop');
+toTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+window.addEventListener('scroll', ()=>{
+  if(window.scrollY > 400) toTop.style.display = 'block';
+  else toTop.style.display = 'none';
+});
+
+// Theme toggle (simple, keeps dark as default)
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('click', ()=>{
+  const body = document.body;
+  if(body.classList.contains('light')){
+    body.classList.remove('light');
+    themeToggle.textContent = '🌙';
+  } else {
+    body.classList.add('light');
+    themeToggle.textContent = '☀️';
+  }
+});
+
+// small enhancement: highlight current section in nav
+const sections = document.querySelectorAll('main, section');
+const navLinks = document.querySelectorAll('.nav a:not(.contact-btn)');
+
+function onScroll(){
+  let index = sections.length;
+  while(--index && window.scrollY + 120 < sections[index].offsetTop) {}
+  navLinks.forEach(a => a.classList.remove('active'));
+  const id = sections[index].id;
+  const link = document.querySelector('.nav a[href="#'+id+'"]');
+  if(link) link.classList.add('active');
+}
+onScroll();
+window.addEventListener('scroll', onScroll);
