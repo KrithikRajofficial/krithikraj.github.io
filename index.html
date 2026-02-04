@@ -6,7 +6,7 @@
   <title>Krithik Raj — Robotics & Automation Engineer</title>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <!-- Main stylesheet -->
   <link rel="stylesheet" href="style.css">
@@ -23,11 +23,11 @@
   <!-- Header / nav -->
   <header class="site-header">
     <div class="container header-row">
-      <div class="brand">
+      <div class="brand" aria-hidden="true">
         <div class="logo-mark">KR<span class="dot">°</span></div>
       </div>
 
-      <nav class="nav" id="mainNav">
+      <nav class="nav" id="mainNav" aria-label="Main navigation">
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
@@ -41,7 +41,7 @@
   </header>
 
   <!-- HERO / HOME -->
-  <main id="home" class="hero-section">
+  <main id="home" class="hero-section" role="main">
     <div class="container hero-grid">
       <div class="hero-left">
         <p class="preamble">• Seeking Robotics &amp; Automation Roles</p>
@@ -65,24 +65,26 @@
         <div class="last-updated">Last updated: Feb 04, 2026</div>
       </div>
 
-      <aside class="hero-right">
+      <aside class="hero-right" aria-label="Profile and education">
         <div class="profile-wrap">
-          <div class="profile-glow"></div>
-          <img src="assets/images/profile-circle.jpg" alt="Krithik Raj" class="profile-img">
+          <div class="profile-glow" aria-hidden="true"></div>
+          <img src="assets/images/profile.jpg" alt="Krithik Raj — profile photo" class="profile-img" width="520" height="520">
           <div class="profile-badge">Seeking Roles</div>
         </div>
 
-        <div class="edu-card">
+        <div class="edu-card" aria-hidden="false">
           <h4>Education</h4>
+
           <div class="edu-item">
-            <img src="assets/images/uob_logo.png" alt="University logo" class="edu-logo">
+            <img src="assets/images/uob_logo.png" alt="University of Birmingham logo" class="edu-logo uob">
             <div>
               <div class="edu-degree">MSc Robotics</div>
               <div class="edu-school">University of Birmingham</div>
             </div>
           </div>
+
           <div class="edu-item">
-            <img src="assets/images/svce-logo.png" alt="College logo" class="edu-logo small">
+            <img src="assets/images/svce-logo.png" alt="SVCE logo" class="edu-logo svce">
             <div>
               <div class="edu-degree">B.E. Mechanical Engineering</div>
               <div class="edu-school">Sri Venkateswara College of Engineering</div>
