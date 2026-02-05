@@ -1,120 +1,145 @@
-/* Simple starfield canvas + small anims + theme toggle + smooth scroll + mouse glow */
+/* Particle background + mouse glow + theme toggle + small parallax effects */
+/* Adjust number of particles according to device width */
 (() => {
-  // STARFIELD
-  const canvas = document.getElementById('starfield');
+  const canvas = document.getElementById('bg-canvas');
   const ctx = canvas.getContext('2d');
-  let W = canvas.width = innerWidth;
-  let H = canvas.height = innerHeight;
-  const num = Math.floor((W * H) / 20000);
-  const stars = [];
+  let w = canvas.width = innerWidth;
+  let h = canvas.height = innerHeight;
 
-  function rand(min, max){ return Math.random() * (max - min) + min; }
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  canvas.width = innerWidth * devicePixelRatio;
+  canvas.height = innerHeight * devicePixelRatio;
+  canvas.style.width = innerWidth + 'px';
+  canvas.style.height = innerHeight + 'px';
+  ctx.scale(devicePixelRatio, devicePixelRatio);
 
-  function initStars(){
-    stars.length = 0;
-    for(let i=0;i<num;i++){
-      stars.push({
-        x: Math.random()*W,
-        y: Math.random()*H,
-        z: Math.random()*1,
-        r: rand(0.4,1.8),
-        vx: rand(-0.02,0.02),
-        vy: rand(-0.01,0.01)
-      });
-    }
+  let mouse = { x: w/2, y: h/2 };
+
+  // particles
+  const particles = [];
+  const count = Math.round(Math.max(40, innerWidth / 20));
+
+  function rand(min, max){ return Math.random()*(max-min)+min; }
+
+  for(let i=0;i<count;i++){
+    particles.push({
+      x: Math.random()*innerWidth,
+      y: Math.random()*innerHeight,
+      r: rand(0.6,2.6),
+      vx: rand(-0.2,0.2),
+      vy: rand(-0.1,0.1),
+      hue: rand(200,210),
+      alpha: rand(0.08,0.28)
+    });
   }
-  initStars();
 
   function resize(){
-    W = canvas.width = innerWidth;
-    H = canvas.height = innerHeight;
-    initStars();
+    const wpx = innerWidth;
+    const hpx = innerHeight;
+    canvas.width = wpx * devicePixelRatio;
+    canvas.height = hpx * devicePixelRatio;
+    canvas.style.width = wpx + 'px';
+    canvas.style.height = hpx + 'px';
+    ctx.scale(devicePixelRatio, devicePixelRatio);
   }
-  addEventListener('resize', resize);
+  window.addEventListener('resize', resize);
 
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    // subtle radial gradient background
-    const g = ctx.createLinearGradient(0,0,W,H);
-    g.addColorStop(0, 'rgba(3,7,20,0.85)');
-    g.addColorStop(1, 'rgba(2,15,28,0.9)');
-    ctx.fillStyle = g;
-    ctx.fillRect(0,0,W,H);
+  function update(){
+    ctx.clearRect(0,0,innerWidth,innerHeight);
 
-    for(const s of stars){
-      s.x += s.vx;
-      s.y += s.vy;
-      if(s.x < 0) s.x = W;
-      if(s.x > W) s.x = 0;
-      if(s.y < 0) s.y = H;
-      if(s.y > H) s.y = 0;
+    // soft gradient overlay
+    const grad = ctx.createLinearGradient(0,0,innerWidth,innerHeight);
+    grad.addColorStop(0,'rgba(5,12,20,0.15)');
+    grad.addColorStop(1,'rgba(6,12,24,0.3)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0,0,innerWidth,innerHeight);
+
+    // draw particles
+    for(let p of particles){
+      p.x += p.vx + (mouse.x - innerWidth/2)*0.00006;
+      p.y += p.vy + (mouse.y - innerHeight/2)*0.00004;
+
+      // wrap
+      if(p.x < -10) p.x = innerWidth + 10;
+      if(p.x > innerWidth + 10) p.x = -10;
+      if(p.y < -10) p.y = innerHeight + 10;
+      if(p.y > innerHeight + 10) p.y = -10;
+
       ctx.beginPath();
-      ctx.fillStyle = 'rgba(150,190,255,' + (0.4 + s.z*0.6) + ')';
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(${Math.round(90)},${Math.round(160)},${255},${p.alpha})`;
+      ctx.arc(p.x, p.y, p.r * (1 + Math.sin(Date.now()/1000 + p.r)*0.2), 0, Math.PI*2);
       ctx.fill();
     }
-    requestAnimationFrame(draw);
-  }
-  draw();
 
-  // MOUSE GLOW follows cursor
-  const glow = document.getElementById('mouse-glow');
-  document.addEventListener('mousemove', e => {
-    const x = e.clientX;
-    const y = e.clientY;
-    glow.style.left = x + 'px';
-    glow.style.top = y + 'px';
-  });
-
-  // THEME toggle (simple: light/dark css changes via variables)
-  const toggle = document.getElementById('theme-toggle');
-  let dark = true;
-  toggle.addEventListener('click', () => {
-    dark = !dark;
-    if(!dark){
-      // light-ish variant
-      document.documentElement.style.setProperty('--bg-1', '#f6f7fb');
-      document.documentElement.style.setProperty('--bg-2', '#eef2f8');
-      document.documentElement.style.setProperty('--text', '#0a0d12');
-      document.documentElement.style.setProperty('--muted', '#4a5568');
-      document.documentElement.style.setProperty('--card-bg', 'rgba(255,255,255,0.85)');
-      document.documentElement.style.setProperty('--glass-border', 'rgba(0,0,0,0.06)');
-      toggle.textContent = '☀️';
-    } else {
-      // restore dark
-      document.documentElement.style.setProperty('--bg-1', '#06060a');
-      document.documentElement.style.setProperty('--bg-2', '#071022');
-      document.documentElement.style.setProperty('--text', '#e8eef6');
-      document.documentElement.style.setProperty('--muted', '#9aa5b1');
-      document.documentElement.style.setProperty('--card-bg', 'rgba(255,255,255,0.04)');
-      document.documentElement.style.setProperty('--glass-border', 'rgba(255,255,255,0.06)');
-      toggle.textContent = '🌙';
+    // occasional larger subtle nebula blobs
+    if(Math.random() > 0.995){
+      ctx.beginPath();
+      const gx = Math.random() * innerWidth;
+      const gy = Math.random() * innerHeight;
+      const rg = ctx.createRadialGradient(gx, gy, 10, gx, gy, 300);
+      rg.addColorStop(0, 'rgba(94,200,255,0.04)');
+      rg.addColorStop(1, 'rgba(58,167,255,0.0)');
+      ctx.fillStyle = rg;
+      ctx.fillRect(gx-300, gy-300, 600, 600);
     }
+
+    requestAnimationFrame(update);
+  }
+  update();
+
+  // mouse tracking for glow
+  const mg = document.getElementById('mouse-glow');
+  window.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    mg.style.left = e.clientX + 'px';
+    mg.style.top = e.clientY + 'px';
+    mg.style.opacity = 1;
+  });
+  window.addEventListener('mouseleave', ()=> mg.style.opacity = 0 );
+
+  // small parallax for hero elements based on mouse
+  const heroLeft = document.querySelector('.hero-left');
+  const heroRight = document.querySelector('.hero-right');
+  document.addEventListener('mousemove', (ev)=>{
+    const cx = innerWidth/2;
+    const cy = innerHeight/2;
+    const dx = (ev.clientX - cx) / cx;
+    const dy = (ev.clientY - cy) / cy;
+
+    if(heroLeft) heroLeft.style.transform = `translate3d(${dx*8}px, ${dy*6}px, 0)`;
+    if(heroRight) heroRight.style.transform = `translate3d(${dx*-12}px, ${dy*-8}px, 0)`;
   });
 
-  // smooth scroll for nav anchors
+  /* Theme toggle */
+  const themeToggle = document.getElementById('theme-toggle');
+  const root = document.documentElement;
+  const body = document.body;
+
+  // init theme from localStorage
+  const saved = localStorage.getItem('site-theme') || 'dark';
+  if(saved === 'light'){ body.classList.add('light'); }
+
+  themeToggle.addEventListener('click', ()=>{
+    const isLight = body.classList.toggle('light');
+    localStorage.setItem('site-theme', isLight ? 'light' : 'dark');
+  });
+
+  /* Simple smooth scrolling for anchor links */
   document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click', (ev)=>{
+    a.addEventListener('click', (e)=>{
       const href = a.getAttribute('href');
-      if(href === '#') return;
-      const el = document.querySelector(href);
-      if(el){
-        ev.preventDefault();
-        el.scrollIntoView({behavior:'smooth',block:'start'});
+      if(href.length>1){
+        e.preventDefault();
+        const el = document.querySelector(href);
+        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
       }
     });
   });
 
-  // tiny idle shimmer on role-pill: it's in CSS animation "blink" set already.
-
-  // Add small parallax of hero right column based on scroll
-  const heroRight = document.querySelector('.hero-right');
-  window.addEventListener('scroll', ()=>{
-    const offset = window.scrollY;
-    if(heroRight){
-      heroRight.style.transform = `translateY(${Math.min(offset * 0.06, 20)}px)`;
-    }
+  // small performance friendly start: reduce particles on small screens
+  window.addEventListener('load', ()=>{
+    // nothing else for now
   });
 
-  // Ensure last-updated uses the given date (we already hard-coded text in HTML).
 })();
